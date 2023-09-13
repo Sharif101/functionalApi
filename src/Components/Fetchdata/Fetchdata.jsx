@@ -16,6 +16,8 @@ export default function Fetchdata() {
     <div className={classes.info}>
       <div>
         <p>vfn</p>
+        <p>vfn</p>
+
         <img src={data.avatar_url} alt="" />
         <h1>Name: {data.name}</h1>
         <p>Company name: {data.company}</p>
