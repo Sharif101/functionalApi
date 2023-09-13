@@ -1,0 +1,12 @@
+.info {
+  width: 20%;
+  border-radius: 18px;
+  background: #f3f2f2;
+  box-shadow: 13px 13px 26px #bebebe, -13px -13px 26px #ffffff;
+}
+
+.info > img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
