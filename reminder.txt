@@ -1,0 +1,61 @@
+
+######## API Methods ########
+
+### Get ####
+useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(
+                    `${apiV1}/`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                )
+
+                const data = await response.json()
+
+                if (response.ok) {
+                   console.log('success')
+                }
+            } catch {
+                console.log('Please check your internet connection!')
+            }
+        }
+        fetchData()
+}, [])
+
+
+### Post ####
+const handleSubmit = async () => {
+        const details = {
+           //
+        }
+
+        try {
+            const response = await fetch(`${apiV1}/`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(details),
+            })
+
+            const log  = await response.json()
+
+            if (response.ok) {
+                console.log('success')
+            } else {
+                alert(log.context + '!')
+            }
+        } catch {
+            alert('Please check your internet connection!')
+        }
+}
+
