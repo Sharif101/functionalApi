@@ -50,3 +50,23 @@
   font-size: 17px;
   font-weight: 700;
 }
+
+.postInput {
+  display: flex;
+  flex-direction: column;
+}
+.postInput > input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #b8b8b8;
+  margin-bottom: 10px;
+}
+
+.postInput > button {
+  width: 50%;
+  background-color: #a1ccff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
