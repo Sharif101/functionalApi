@@ -1,12 +1,52 @@
 .info {
-  width: 20%;
-  border-radius: 18px;
-  background: #f3f2f2;
-  box-shadow: 13px 13px 26px #bebebe, -13px -13px 26px #ffffff;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  margin-top: 60px;
 }
-
-.info > img {
-  width: 200px;
-  height: 200px;
+.get {
+  background-color: white;
+  box-shadow: 8px 8px 11px #dadbe1;
+  padding: 20px;
+  border-radius: 10px;
+}
+.searchbar {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 30px;
+}
+.searchbar > input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #b8b8b8;
+}
+.searchbar > input::placeholder {
+  color: rgba(128, 128, 128, 0.637);
+  font-size: 12px;
+}
+.searchbar > button {
+  background-color: #a1ccff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.getInfo {
+  display: flex;
+  gap: 30px;
+}
+.getInfo > .img {
+  width: 40%;
+}
+.getInfo > .img > img {
+  width: 100%;
   border-radius: 50%;
+}
+.details > p {
+  font-size: 15px;
+}
+.details > p > span {
+  color: rgba(73, 61, 46, 0.63);
+  font-size: 17px;
+  font-weight: 700;
 }
