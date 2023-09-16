@@ -1,0 +1,17 @@
+.singleUser {
+  background-color: white;
+  box-shadow: 8px 8px 11px #dadbe1;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.singleUser > p {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.singleUser > p > span {
+  font-size: 16px;
+  font-weight: 400;
+}

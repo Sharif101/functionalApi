@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import classes from "./Fetchdata.module.css";
 
 export default function Fetchdata() {
-  // const [info, setInfo] = useState([]);
-  // useEffect(() => {
-  //   fetch("https://api.github.com/users/Sharif101")
-  //     .then((res) => res.json())
-  //     .then((data) => setInfo(data));
-  // }, []);
-
+  const [search, setSearch] = useState("");
   const [name, setName] = useState("Sharif101");
   const [detail, setDetail] = useState({});
 
@@ -17,10 +11,13 @@ export default function Fetchdata() {
 
   // console.log(name);
 
-  // const handleChange = (e) => {
-  //   e.preventDefault();
-  //   setName(e.target.value);
-  // };
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+  const handleClick = () => {
+    setName(search);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,8 +67,10 @@ export default function Fetchdata() {
       const log = await response.json();
 
       if (response.ok) {
-        console.log("success");
+        // alert("Success");
         console.log("Post Api", log);
+        setUserName("");
+        setPassword("");
       } else {
         alert(log.context + "!");
       }
@@ -87,10 +86,12 @@ export default function Fetchdata() {
           <input
             type="text"
             placeholder="Enter Github UserName"
-            // onChange={handleChange}
-            onChange={(e) => setName(e.target.value)}
+            value={search}
+            onChange={handleChange}
           />
-          <button type="submit">Search</button>
+          <button type="submit" onClick={handleClick}>
+            Search
+          </button>
         </from>
         <div className={classes.getInfo}>
           <div className={classes.img}>
@@ -142,7 +143,7 @@ export default function Fetchdata() {
           <button type="submit" onClick={handleSubmit}>
             submit
           </button>
-          <small>(Cheack console)</small>
+          <small>(Check console)</small>
         </from>
       </div>
     </div>
