@@ -1,5 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import { Landingpage, WelcomeR, Myhealth, Totalapp } from "./pages";
+import {
+  Landingpage,
+  WelcomeR,
+  Myhealth,
+  Totalapp,
+  Doctorpage,
+  Createapp,
+} from "./pages";
 
 function App() {
   return (
@@ -9,6 +16,8 @@ function App() {
         <Route path="/welcome" element={<WelcomeR />} />
         <Route path="/totalapp" element={<Totalapp />} />
         <Route path="/myhealth" element={<Myhealth />} />
+        <Route path="/doctor" element={<Doctorpage />} />
+        <Route path="/create-appoinment" element={<Createapp />} />
       </Routes>
     </div>
   );
