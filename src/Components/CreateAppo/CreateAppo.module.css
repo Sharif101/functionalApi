@@ -1,0 +1,9 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.label label {
+  font-size: 12px;
+  font-weight: 500;
+}

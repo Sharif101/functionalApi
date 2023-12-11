@@ -1,0 +1,9 @@
+.inptForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.inptForm label {
+  font-size: 12px;
+  font-weight: 500;
+}
