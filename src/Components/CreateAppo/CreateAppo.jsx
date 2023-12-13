@@ -8,8 +8,11 @@ const CreateAppo = () => {
   const [doctors, setDoctors] = useState([]);
   const [docHide, setDocHide] = useState(false);
 
-  console.log(doctors);
-  console.log(docHide);
+  const [patients, setPatients] = useState([]);
+  const [patHide, setPatHide] = useState(false);
+  const [patSearch, setPatSearch] = useState("");
+
+  console.log(patients);
 
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyLCJleHAiOjE3MDI0NTA2NTF9.xZNkdMJvHmhymHlBMG3z8dNOj-4I0IddxJQXBWdJros";
@@ -24,6 +27,32 @@ const CreateAppo = () => {
   //     };
   //     document.addEventListener("click", handleoutsideclick);
   //   }, []);
+
+  useEffect(() => {
+    let dataPat = async () => {
+      try {
+        let response = await fetch(
+          `${API}/v1/user-details/phone?number=${patSearch}&skip=0&limit=10`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        let data = await response.json();
+
+        if (response.ok) {
+          setPatients(data);
+        }
+      } catch {
+        setPatients([]);
+      }
+    };
+    dataPat();
+  }, [patSearch]);
 
   useEffect(() => {
     let fetchDoc = async () => {
@@ -56,8 +85,33 @@ const CreateAppo = () => {
         <form action="">
           <div className={classes.label}>
             <label htmlFor="">
-              Search Patient by Phone: <input type="text" />
+              Search Patient by Phone:{" "}
+              <input
+                type="text"
+                value={patSearch}
+                onChange={(e) => setPatSearch(e.target.value)}
+                onFocus={() => setPatHide(true)}
+              />
             </label>
+            {/* ------------- */}
+            {patHide && (
+              <div>
+                {patients &&
+                  patients.map((pat, i) => (
+                    <div key={i}>
+                      <div
+                        onClick={() => {
+                          setPatSearch(pat?.User?.name);
+                        }}
+                      >
+                        <option value="">
+                          {pat?.User?.name} - {pat?.User?.phone}
+                        </option>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            )}
             <label htmlFor="">
               Search Doctor by name:{" "}
               <input
