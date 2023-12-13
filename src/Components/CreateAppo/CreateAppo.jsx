@@ -2,31 +2,51 @@ import React, { useEffect, useState } from "react";
 import Form from "../Form/Form";
 import SubmitButton from "../Button/SubmitButton/SubmitButton";
 import classes from "./CreateAppo.module.css";
+import Singledoc from "./Singledoc/Singledoc";
+import { dateTime } from "../../Utilits/date";
 
 const CreateAppo = () => {
   const [docSearch, setDocSearch] = useState("");
   const [doctors, setDoctors] = useState([]);
   const [docHide, setDocHide] = useState(false);
+  const [singleDoc, setSingleDoc] = useState("");
+  const [docDetails, setDocDetails] = useState(false);
 
   const [patients, setPatients] = useState([]);
   const [patHide, setPatHide] = useState(false);
   const [patSearch, setPatSearch] = useState("");
 
-  console.log(patients);
+  const [date, setDate] = useState("");
+  const [totalfee, setTotalfee] = useState("");
+  const [paid, setPaid] = useState();
+  const [due, setDue] = useState();
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyLCJleHAiOjE3MDI0NTA2NTF9.xZNkdMJvHmhymHlBMG3z8dNOj-4I0IddxJQXBWdJros";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyLCJleHAiOjE3MDI2MjQ0MTh9.tjYV-HFzsC7aY_LXmpb_MTwxjwmjihxobI9YPPNb-pE";
   const API = "https://devec.healthxbd.com/api";
   const clinicId = 1;
 
-  //   useEffect(() => {
-  //     const handleoutsideclick = (event) => {
-  //       if (event.target.tagname !== "INPUT") {
-  //         setDocHide(false);
-  //       }
-  //     };
-  //     document.addEventListener("click", handleoutsideclick);
-  //   }, []);
+  const calculate = () => {
+    if (totalfee > paid) {
+      const dueamount = totalfee - paid;
+      setDue(dueamount);
+    } else {
+      setDue("");
+    }
+  };
+
+  useEffect(() => {
+    calculate();
+  }, [paid]);
+
+  // useEffect(() => {
+  //   const handleoutsideclick = (event) => {
+  //     if (event.target.tagname !== "INPUT") {
+  //       setDocHide(false);
+  //     }
+  //   };
+  //   document.addEventListener("click", handleoutsideclick);
+  // }, []);
 
   useEffect(() => {
     let dataPat = async () => {
@@ -79,10 +99,76 @@ const CreateAppo = () => {
     fetchDoc();
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const details = {
+      service: {
+        service_name: "telemedicine",
+        service_issuer_id: 1,
+        patient_id: 100,
+        order_placement: "2023-12-13T16:53",
+        order_status: "pending",
+        order_value: totalfee,
+        discount_percent: 0,
+        payable_amount: totalfee,
+        payment_by_customer: paid || 0,
+        payment_pending: due || 0,
+        delivery_fee: 0,
+        payment_method: "cash on delivery",
+        payment_status: "done",
+        service_provider_type: "doctor",
+        service_provider_id: singleDoc?.Doctor?.user_id,
+        service_provider_fee: totalfee,
+        service_provider_fee_paid: 0,
+        service_provider_fee_pending: 0,
+        service_provider_fee_status: "pending",
+        referral_type: "clinic",
+        referral_id: 1,
+        referral_provider_fee: 0,
+        referral_provider_fee_paid: 0,
+        referral_provider_fee_pending: 0,
+        referral_provider_fee_status: "pending",
+        current_address: "--",
+        remarks: "type",
+        causes: "cause",
+        type: "type",
+      },
+      telemedicine: {
+        patient_id: 100,
+        doctor_id: singleDoc?.Doctor?.user_id,
+        booked_date: date,
+      },
+    };
+    try {
+      const response = await fetch(
+        `${API}/v2/clinic-services/telemedicine/${clinicId}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(details),
+        }
+      );
+
+      const log = await response.json();
+
+      if (response.ok) {
+        // navigate('/appointment-today')
+        alert("order");
+      } else {
+        alert(log.context + "!");
+      }
+    } catch (err) {}
+  };
+
   return (
     <div>
       <Form title="Create Appoinment" text="Details Info">
-        <form action="">
+        <form action="" onSubmit={(e) => handleSubmit(e)}>
           <div className={classes.label}>
             <label htmlFor="">
               Search Patient by Phone:{" "}
@@ -131,6 +217,10 @@ const CreateAppo = () => {
                         onClick={() => {
                           setDocHide(false);
                           setDocSearch(doc?.User?.name);
+                          setSingleDoc(doc);
+                          setDocDetails(true);
+                          setDoctors([]);
+                          setTotalfee(doc?.Doctor?.online_fees || "");
                         }}
                       >
                         <option value="">
@@ -142,6 +232,38 @@ const CreateAppo = () => {
                   ))}
               </div>
             )}
+            {docDetails && docSearch.length > 0 && (
+              <Singledoc singleDoc={singleDoc} />
+            )}
+          </div>
+          <div>
+            <label htmlFor="">
+              <input
+                type="date"
+                name=""
+                id=""
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </label>
+            <label htmlFor="">
+              {" "}
+              Consultation fee :{" "}
+              <input type="number" name="" id="" value={totalfee} />
+            </label>{" "}
+            <label htmlFor="">
+              paid :{" "}
+              <input
+                type="number"
+                value={paid}
+                onChange={(e) => setPaid(parseInt(e.target.value))}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="">
+              Due : <input type="number" name="" id="" value={due} />
+            </label>
           </div>
           <SubmitButton title="Add Doctor" />
         </form>
