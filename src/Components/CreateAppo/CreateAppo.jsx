@@ -106,7 +106,7 @@ const CreateAppo = () => {
       service: {
         service_name: "telemedicine",
         service_issuer_id: 1,
-        patient_id: 100,
+        patient_id: 11,
         order_placement: "2023-12-13T16:53",
         order_status: "pending",
         order_value: totalfee,
@@ -118,7 +118,7 @@ const CreateAppo = () => {
         payment_method: "cash on delivery",
         payment_status: "done",
         service_provider_type: "doctor",
-        service_provider_id: singleDoc?.Doctor?.user_id,
+        service_provider_id: 5,
         service_provider_fee: totalfee,
         service_provider_fee_paid: 0,
         service_provider_fee_pending: 0,
@@ -135,8 +135,8 @@ const CreateAppo = () => {
         type: "type",
       },
       telemedicine: {
-        patient_id: 100,
-        doctor_id: singleDoc?.Doctor?.user_id,
+        patient_id: 11,
+        doctor_id: 5,
         booked_date: date,
       },
     };
