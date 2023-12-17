@@ -22,7 +22,7 @@ const CreateAppo = () => {
   const [due, setDue] = useState();
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyLCJleHAiOjE3MDI2MjQ0MTh9.tjYV-HFzsC7aY_LXmpb_MTwxjwmjihxobI9YPPNb-pE";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyLCJleHAiOjE3MDI5NTc0MTl9.gf1bk5C1CCDpmdnd9S8SnQqL37YhIbmum6EnNnnN-EA";
   const API = "https://devec.healthxbd.com/api";
   const clinicId = 1;
 
