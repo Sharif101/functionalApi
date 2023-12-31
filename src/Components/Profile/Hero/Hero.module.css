@@ -1,0 +1,46 @@
+.container p {
+  margin: 0;
+}
+.container {
+  width: 25rem;
+  display: flex;
+  align-items: center;
+}
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.img {
+  width: 15%;
+}
+.img img {
+  width: 100%;
+  border-radius: 50%;
+}
+.name {
+  display: flex;
+  gap: 8px;
+}
+.name > p:nth-child(1) {
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 2px;
+}
+.name > .icon {
+  width: 6%;
+}
+.name > .icon > img {
+  width: 100%;
+}
+.text > p:nth-child(2) {
+  font-size: 12px;
+}
+.container > button {
+  background-color: rgb(104, 151, 238);
+  padding: 7px 15px;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}

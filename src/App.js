@@ -6,6 +6,7 @@ import {
   Totalapp,
   Doctorpage,
   Createapp,
+  Dashboardd,
 } from "./pages";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/myhealth" element={<Myhealth />} />
         <Route path="/doctor" element={<Doctorpage />} />
         <Route path="/create-appoinment" element={<Createapp />} />
+        <Route path="/dashboard" element={<Dashboardd />} />
       </Routes>
     </div>
   );
